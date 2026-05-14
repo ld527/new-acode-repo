@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TechDZ</title>
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --card: #ffffff;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --primary: #ff6b00;
+    --primary-dark: #e55f00;
+    --border: #e5e7eb;
+    --warning-bg: #fef3c7;
+    --warning-text: #92400e;
+  }
+
+  [data-theme="dark"] {
+    --bg: #0f1115;
+    --card: #1a1d23;
+    --text: #e6e6e6;
+    --muted: #9aa0a6;
+    --border: #2a2f38;
+    --warning-bg: #78350f;
+    --warning-text: #fcd34d;
+  }
+
+    * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: 0.3s;
+  }
+
+  /* --- شاشة تسجيل الدخول --- */
+  #loginScreen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 400px;
+    background: var(--card);
+    border-radius: 20px;
+    padding: 30px 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  .logo {
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .logo h1 {
+    font-size: 2rem;
+    font-weight: 800;
+  }
+  .logo span:first-child { color: var(--primary); }
+  .logo span:last-child { color: var(--text); }
+  
+  .subtitle {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+  }
+
+  input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 1rem;
+    text-align: right;
+  }
+  input:focus {
+    outline: none;
+    border-color: var(--primary);
+  }
+
+  button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: 0.2s;
+  }
+  button:active { transform: scale(0.98); }
+
+  .btn-primary {
+    background: var(--primary);
+    color: white;
+  }
+  .btn-primary:hover { background: var(--primary-dark); }
+
+  .btn-secondary {
+    background: var(--border);
+    color: var(--text);
+  }
+
+  .btn-dark {
+    background: #1a1a1a;
+    color: white;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    color: var(--muted);
+  }
+  .divider::before,
+  .divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .divider span { margin: 0 12px; }
+
+  .skip {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  /* --- الشاشة الرئيسية --- */
+  #mainScreen { display: none; }
+
+  header {
+    background: var(--card);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  .icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+  }
+  .icon-btn:nth-child(3) {
+    background: var(--border);
+    color: var(--text);
+  }
+
+  .search {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: 20px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    text-align: right;
+  }
+
+  .banner {
+    background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+    color: white;
+    text-align: center;
+    padding: 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 20px;
+    padding: 14px 16px;
+    background: var(--card);
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .tab {
+    color: var(--muted);
+    cursor: pointer;
+    padding-bottom: 4px;
+  }
+  .tab.active {
+    color: var(--primary);
+    font-weight: 700;
+    border-bottom: 2px solid var(--primary);
+  }
+
+  .info-bar {
+    background: var(--warning-bg);
+    color: var(--warning-text);
+    text-align: center;
+    padding: 10px;
+    font-size: 0.85rem;
+  }
+
+  .products {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .product {
+    background: var(--card);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  .product img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    background: #000;
+  }
+
+  .product-info {
+    padding: 12px;
+  }
+  .product-info h3 {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+  }
+  .price {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<!-- شاشة تسجيل الدخول -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="logo">
+      <h1><span>Tech</span><span>DZ</span></h1>
+    </div>
+    <p class="subtitle">أقوى متجر هاردوير في الجزائر</p>
+
+    <input type="email" id="email" placeholder="الإيميل">
+    <input type="password" id="password" placeholder="كلمة السر">
+
+    <button class="btn-primary" onclick="login()">دخول الزبون ➜</button>
+    <button class="btn-secondary">إنشاء حساب جديد</button>
+
+    <div class="divider"><span>أو</span></div>
+
+    <button class="btn-dark">دخول الأدمن 🛡️</button>
+    <p class="skip" onclick="skipLogin()">تخطي وتصفح كزائر</p>
+  </div>
+</div>
+
+<!-- الشاشة الرئيسية -->
+<div id="mainScreen">
+  <header>
+    <div class="icon-btn">👤</div>
+    <div class="icon-btn">🛍️</div>
+    <div class="icon-btn" onclick="toggleTheme()">🌙</div>
+    <input class="search" placeholder="ابحث عن 14900K">
+    <div style="font-weight:800; font-size:1.2rem;">
+      <span style="color:var(--primary)">Tech</span><span>DZ</span>
+    </div>
+  </header>
+
+  <div class="banner">الاسعار هنا حقيقية 100% وتتحدث كل 10 دقائق</div>
+
+  <div class="tabs">
+    <div class="tab active">الكل</div>
+    <div class="tab">هواتف</div>
+    <div class="tab">لابتوب</div>
+    <div class="tab">كروت شاشة</div>
+    <div class="tab">معالجات</div>
+  </div>
+
+  <div class="info-bar">
+    عدد المنتجات: 480 | 120 هاتف • 120 لابتوب • 120 كرت شاشة • 120 معالج
+  </div>
+
+  <div class="products" id="productsGrid"></div>
+</div>
+
+<script>
+  // --- البيانات الوهمية ---
+  const products = [
+    {name: "iPhone 15 Pro Max 512GB", price: "395 000", img: "https://images.unsplash.com/photo-1695048133144-1a20484d256b?w=400"},
+    {name: "iPhone 15 Pro Max 1000GB", price: "425 000", img: "https://images.unsplash.com/photo-1695048132549-bf5408d23f06?w=400"},
+    {name: "iPhone 15 Pro 1000GB", price: "345 000", img: "https://images.unsplash.com/photo-1592899677977-9c10def29a5c?w=400"},
+    {name: "iPhone 15 Pro Max 256GB", price: "365 000", img: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400"}
+  ];
+
+  // --- تسجيل الدخول ---
+  function login() {
+    const email = document.getElementById('email').value;
+    if(email) localStorage.setItem('techdz_user', email);
+    showMain();
+  }
+
+  function skipLogin() {
+    localStorage.setItem('techdz_user', 'guest');
+    showMain();
+  }
+
+  function showMain() {
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('mainScreen').style.display = 'block';
+    loadProducts();
+  }
+
+  // --- تحميل المنتجات ---
+  function loadProducts() {
+    grid.innerHTML = products.map(p => `
+      <div class="product">
+        <img src="${p.img}" loading="lazy" alt="${p.name}">
+        <div class="product-info">
+          <h3>${p.name}</h3>
+          <div class="price">${p.price} دج</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // --- الوضع الليلي ---
+  function toggleTheme() {
+    const theme = document.documentElement
